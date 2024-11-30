@@ -1,0 +1,103 @@
+package com.serviceImpl;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.service.*;
+import com.config.*;
+import com.model.Address;
+import com.model.User;
+import java.util.*;
+
+public class Data implements Requirement
+{
+
+	Scanner sc = new Scanner(System.in);
+	Address ad = new Address();
+	User u = new User();
+	@Override
+	public void insertData() 
+	{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		 
+		System.out.println("How many User's data you want to add");
+		int no = sc.nextInt();
+		
+		for(int i=no; i<=no; i++)
+		{
+		System.out.println("Enter Id:");
+		u.setId(sc.nextInt());
+		System.out.println("Enter Name:");
+		u.setName(sc.next());
+		System.out.println("Enter Mobile no:");
+		u.setMobno(sc.nextLong());
+		System.out.println("Enter Gender:");
+		u.setGender(sc.next());
+		System.out.println("Enter GmailId:");
+		u.setEmailId(sc.next());
+		
+		System.out.println("Enter PIN Code:");
+		ad.setPincode(sc.nextInt());
+		System.out.println("Enter City Name:");
+		ad.setCity(sc.next());
+		System.out.println("Enter Area Name:");
+		ad.setArea(sc.next());
+		
+		session.persist(u);
+		tx.commit();
+		}
+		
+	}
+
+	@Override
+	public void viewSingleData() 
+	{
+		try
+		{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		System.out.println("Enter Id for viewSingleData:");
+		int id = sc.nextInt();
+		
+		User u = session.get(User.class, id);
+		
+		System.out.println(u.getId());
+		System.out.println(u.getName());
+		System.out.println(u.getMobno());
+		System.out.println(u.getEmailId());
+		System.out.println(u.getGender());
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void viewAllData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSingleData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAllData() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+}
